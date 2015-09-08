@@ -4,25 +4,21 @@ This program uses a database to generate a static php file for 301-Redirects. Ba
 
 ## Installation
 
-1. Create a database. MySQL Schema for example:
+Create a database. MySQL Schema for example:
+```sql
+SET NAMES utf8;
+SET time_zone = '+00:00';
 
-        -- Adminer 4.2.1 MySQL dump
+CREATE TABLE `redirects` (
+  `slug` varchar(255) NOT NULL,
+  `target` varchar(512) NOT NULL,
+  `expiration_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`slug`),
+  UNIQUE KEY `slug` (`slug`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+```
 
-        SET NAMES utf8;
-        SET time_zone = '+00:00';
-
-        CREATE TABLE `redirects` (
-          `slug` varchar(255) NOT NULL,
-          `target` varchar(512) NOT NULL,
-          `expiration_date` datetime DEFAULT NULL,
-          PRIMARY KEY (`slug`),
-          UNIQUE KEY `slug` (`slug`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-
-        -- 2015-09-08 15:48:25
-
-2. Save your database credentials as a SQLAlchemy connection string in `connection.py`
+Save your database credentials as a SQLAlchemy connection string in `connection.py`
 
 ## Usage
 
@@ -30,6 +26,40 @@ Use `add.py` to add your first shortlink:
 
     ./add.py "Handling Exceptions" https://wiki.python.org/moin/HandlingExceptions /path/to/DocumentRoot
 
-## Protip
+### Protip
 
 Use `add.py -h` to display a short help text.
+
+## Result
+
+This would be the generated output for above execution:
+
+```php
+<?php
+
+$slug = $_GET["slug"];
+
+switch($slug) {
+	case "handling-exceptions":
+		header("Location: https://wiki.python.org/moin/HandlingExceptions", true, 301);
+		exit();
+    default:
+        http_response_code(404);
+?>
+
+<html>
+    <head>
+        <title>404: Seite nicht gefunden!</title>
+    </head>
+    <body>
+        <h1>404: Seite nicht gefunden!</h1>
+        <p>Zu dem angegebenen Kurzlink konnte keine Weiterleitung gefunden werden.</p>
+        <p><strong>Alles richtig geschrieben?</strong></p>
+    </body>
+</html>
+
+<?php
+}
+?>
+```
+
