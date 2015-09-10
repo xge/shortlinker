@@ -18,17 +18,25 @@ CREATE TABLE `redirects` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 ```
 
-Save your database credentials as a SQLAlchemy connection string in `connection.py`
+Save your database credentials as an SQLAlchemy connection string in `connection.py`
 
 ## Usage
 
-Use `add.py` to add your first shortlink:
+### Inline help text
 
-    ./add.py "Handling Exceptions" https://wiki.python.org/moin/HandlingExceptions /path/to/DocumentRoot
+    shortlinker.py -h
 
-### Protip
+### Add a new shortlink
 
-Use `add.py -h` to display a short help text.
+    shortlinker.py --slug "Handling exceptions" --target https://wiki.python.org/moin/HandlingExceptions --out /path/to/output
+
+### List current shortlinks
+
+    shortlinker.py -l
+
+or
+
+    shortlinker.py --list
 
 ## Result
 
