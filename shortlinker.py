@@ -80,7 +80,7 @@ if __name__ == '__main__':
     if args.list is True:
         shortlinker.list()
     if args.write is True and args.out is not None:
-        shortlinker.write(out)
+        shortlinker.write(args.out)
     else:
         if args.slug is not None and args.target is not None and args.out is not None:
             shortlinker.add(slugify(args.slug), args.target, args.exp)
