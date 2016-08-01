@@ -19,7 +19,7 @@ parser.add_argument('-exp', help='Optional expiration date')
 parser.add_argument('-slug', help='The URL slug')
 parser.add_argument('-target', help='The target URL')
 parser.add_argument('-out', help='Output directory')
-parser.add_argument('-write', help='Write the current database to `out`')
+parser.add_argument('-write', help='Write the current database to `out`', action='store_true')
 parser.add_argument('-l', '--list', help='List all stored redirects.', action='store_true')
 args = parser.parse_args()
 
