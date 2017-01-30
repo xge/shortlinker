@@ -20,6 +20,22 @@ CREATE TABLE `redirects` (
 
 Save your database credentials as an SQLAlchemy connection string in `connection.py`
 
+## Configure your webserver
+
+### Apache
+
+shortlinker creates a `.htaccess` file with all the necessary rewrites, so make sure you enable config overriding in your VHost definition.
+
+### Nginx
+
+For nginx use this little config snippet:
+
+```
+location / {
+    rewrite (.*)$ /index.php?slug=$1;
+}
+```
+
 ## Usage
 
 ### Inline help text

@@ -1,6 +1,6 @@
 <?php
 
-$slug = $_GET["slug"];
+$slug = ltrim($_GET["slug"], '/');
 
 switch($slug) {
 // INSERT

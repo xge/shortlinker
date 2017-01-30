@@ -27,7 +27,7 @@ args = parser.parse_args()
 class Shortlinker:
     def __init__(self, conn):
         self.conn = conn
-        self.engine = create_engine(conn)
+        self.engine = create_engine(conn, echo=True)
 
     def add(self, slug, target, exp):
         redirect = Redirect(slug=slug, target=target, expiration_date=exp)
